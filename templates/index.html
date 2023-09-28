@@ -1,11 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  	<meta charset="UTF-8">
-  	<title>CS490 Project</title>
-  </head>
-  <body>
-  	<h1>CS490 Project</h1>
-  	<p>{{ message }}</p>
-  </body>
+<head>
+	<meta charset="UTF-8">
+	<title>Home</title>
+</head>
+<body>
+    <form method="POST" action="">
+        <input type="submit" name="nav" value="Home">
+        <input type="submit" name="nav" value="Movies">
+        <input type="submit" name="nav" value="Customers">
+    </form>
+	<h1>Home</h1>
+    <form method="POST" action="">
+        <input type="submit" name ="top" value="View Top 5 Rented">
+        <input type="submit" name ="topActor" value="View Top 5 Actors">
+    </form>
+    <table border="1">
+        {% for detail in details %}
+        <tr>
+            <td><form method="POST" action="">
+                <input type="submit" name="top" value="{{detail[0]}}">
+            </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <table border="1">
+        {% for detail in actorDetails %}
+        <tr>
+            {% for x in detail %}
+            <td>{{ x }}</td>
+            {% endfor %}
+            <td><form method="POST" action="">
+                <input type="hidden" name="first_name" value="{{detail[0]}}">
+                <input type="hidden" name="last_name" value="{{detail[1]}}">
+                <input type="submit" name="topActor" value="View Details">
+            </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <table border="1">
+        {% for detail in movieDetails %}
+        <tr>
+            {% for x in detail %}
+            <td>{{ x }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <table border="1">
+        {% for detail in iActorDetails %}
+        <tr>
+            {% for x in detail %}
+            <td>{{ x }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
 </html>

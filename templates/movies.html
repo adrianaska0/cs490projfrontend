@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Movies</title>
+</head>
+<body>
+    <form method="POST" action="">
+        <input type="submit" name="nav" value="Home">
+        <input type="submit" name="nav" value="Movies">
+        <input type="submit" name="nav" value="Customers">
+    </form>
+	<h1>Movies</h1>
+    <h3>Search Movies</h3>
+    <form method="POST" action="">
+        <input type="text" name="search" placeholder="Search by film, actor, or genre">
+        <input type="submit" name="subSearch" value="Go">
+    <table border="1">
+        {% for detail in searchRes %}
+        <tr>
+            <td><form method="POST" action="">
+                <input type="submit" name="mov" value="{{detail[0]}}">
+            </form></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <table border="1">
+        {% for detail in movieDetails %}
+        <tr>
+            {% for x in detail %}
+            <td>{{ x }}</td>
+            {% endfor %}
+            <td>
+                <form method="POST" action="">
+                    <input type="text" name="custID" placeholder="Enter customer ID">
+                    <input type="hidden" name="rentedMov" value="{{detail[0]}}">
+                    <input type="submit" name="rent" value="Rent">
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

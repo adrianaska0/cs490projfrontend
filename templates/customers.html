@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Customers</title>
+</head>
+<body>
+    <form method="POST" action="">
+        <input type="submit" name="nav" value="Home">
+        <input type="submit" name="nav" value="Movies">
+        <input type="submit" name="nav" value="Customers">
+    </form>
+	<h1>Customers</h1>
+    <h3>Add a Customer</h3>
+    <form method="POST" action="">
+        <input type="text" name="fName" placeholder="First Name">
+        <input type="text" name="lName" placeholder="Last Name">
+        <input type="text" name="email" placeholder="Email">
+        <input type="text" name="phone" placeholder="Phone Number">
+        <input type="text" name="addy" placeholder="Address">
+        <input type="text" name="addy2" placeholder="Address 2">
+        <input type="text" name="dist" placeholder="Territory/State">
+        <input type="text" name="city" placeholder="City">
+        <input type="text" name="zip" placeholder="Zip Code">
+        <input type="text" name="country" placeholder="Country">
+        <input type="submit" name="subAdd" value="Add Customer">
+    </form>
+    <form method="POST" action="">
+        <input type="submit" name="list" value="View All">
+    </form>
+    <form method="POST" action="">
+        <input type="text" name="filterVal" placeholder="Filter by id, first, or last name">
+        <input type="submit" name="filterSub" value="Filter">
+    </form>
+    <table border="1">
+        {% for detail in customerList %}
+        <tr>
+            {% for d in detail %}
+            <td>{{ d }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
