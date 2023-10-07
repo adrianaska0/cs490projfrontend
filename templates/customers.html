@@ -38,8 +38,35 @@
             {% for d in detail %}
             <td>{{ d }}</td>
             {% endfor %}
+            <td><form method="POST" action="">
+                <input type="hidden" name="custID" value="{{detail[0]}}">
+                <input type="submit" name="custDet" value="View More">
+            </form></td>
         </tr>
         {% endfor %}
     </table>
+    {% if cID %}
+    <table border="1">
+        <tr>
+            <td>
+                ID: {{ cID }}<br />
+                <form method="POST" action="">
+                <input type="hidden" name="ID" value="{{cID}}"><br />
+                First Name <input type="text" name="fN" value="{{fN}}"><br />
+                Last Name <input type="text" name="lN" value="{{lN}}"><br />
+                Email <input type="text" name="eM" value="{{eM}}"><br />
+                Phone <input type="text" name="pH" value="{{pH}}"><br />
+                Address <input type="text" name="sT" value="{{sT}}"><br />
+                Address 2 <input type="text" name="sT2" value="{{sT2}}"><br />
+                City <input type="text" name="cT" value="{{cT}}"><br />
+                State/Territory <input type="text" name="dT" value="{{dT}}"><br />
+                Zip Code <input type="text" name="zip" value="{{zip}}"><br />
+                Country <input type="text" name="cTry" value="{{cTry}}"><br />
+                <input type="submit" name="upCus" value="Update Customer">
+                <input type="submit" name="delCus" value="Delete Customer">
+            </form></td>
+        </tr>
+    </table>
+    {% endif %}
 </body>
 </html>
