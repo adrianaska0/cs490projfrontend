@@ -63,9 +63,33 @@
                 Zip Code <input type="text" name="zip" value="{{zip}}"><br />
                 Country <input type="text" name="cTry" value="{{cTry}}"><br />
                 <input type="submit" name="upCus" value="Update Customer">
-                <input type="submit" name="delCus" value="Delete Customer">
-            </form></td>
+                <input type="submit" name="delCus" value="Delete Customer"><br />
+                <input type="submit" name="rentals" value="View Rentals">
+                </form>
+            </td>
         </tr>
+    </table>
+    {% endif %}
+    {% if rentals %}
+    ID: {{ custIden }} {{ lNam }},{{ fNam }}
+    <table border="1">
+        <th>Rental ID</th>
+        <th>Film</th>
+        <th>Rental Date</th>
+        <th>Return Date</th>
+        <th>Updated</th>
+            {% for detail in rentals %}
+            <tr> 
+                {% for d in detail %}
+                <td>
+                    {{ d }}
+                </td>
+                {% if detail[3] == '' %} 
+                <td>Return</td>
+                {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}
     </table>
     {% endif %}
 </body>
