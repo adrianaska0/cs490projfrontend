@@ -9,12 +9,19 @@
         <input type="submit" name="nav" value="Home">
         <input type="submit" name="nav" value="Movies">
         <input type="submit" name="nav" value="Customers">
+        <input type="submit" name="exp" value="Export">
     </form>
 	<h1>Movies</h1>
     <h3>Search Movies</h3>
     <form method="POST" action="">
         <input type="text" name="search" placeholder="Search by film, actor, or genre">
         <input type="submit" name="subSearch" value="Go">
+    </form>
+
+    {% if errorVar %}
+        <br />No results found for {{ errorVar }}.
+    {% endif %}
+
     <table border="1">
         {% for detail in searchRes %}
         <tr>
@@ -25,6 +32,13 @@
         {% endfor %}
     </table>
     <table border="1">
+        {% if movieDetails %}
+        <th>Film ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Year</th>
+        <th></th>
+        {% endif %}
         {% for detail in movieDetails %}
         <tr>
             {% for x in detail %}
@@ -32,7 +46,7 @@
             {% endfor %}
             <td>
                 <form method="POST" action="">
-                    <input type="text" name="custID" placeholder="Enter customer ID">
+                    <input type="text" name="custID" placeholder="Enter customer ID" required pattern="[0-9]+">
                     <input type="hidden" name="rentedMov" value="{{detail[0]}}">
                     <input type="submit" name="rent" value="Rent">
                 </form>
@@ -40,5 +54,8 @@
         </tr>
         {% endfor %}
     </table>
+    {% if errorVarCus %}
+        <br />{{ errorVarCus }}
+    {% endif %}
 </body>
 </html>
