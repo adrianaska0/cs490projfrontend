@@ -9,6 +9,7 @@
         <input type="submit" name="nav" value="Home">
         <input type="submit" name="nav" value="Movies">
         <input type="submit" name="nav" value="Customers">
+        <input type="submit" name="exp" value="Export">
     </form>
 	<h1>Home</h1>
     <form method="POST" action="">
@@ -26,6 +27,12 @@
         {% endfor %}
     </table>
     <table border="1">
+        {% if actorDetails %}
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Number of Movies</th>
+        <th></th>
+        {% endif %}
         {% for detail in actorDetails %}
         <tr>
             {% for x in detail %}
@@ -41,6 +48,12 @@
         {% endfor %}
     </table>
     <table border="1">
+        {% if movieDetails %}
+        <th>Film ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Year</th>
+        {% endif %}
         {% for detail in movieDetails %}
         <tr>
             {% for x in detail %}
@@ -50,6 +63,10 @@
         {% endfor %}
     </table>
     <table border="1">
+        {% if iActorDetails %}
+        <th>Film</th>
+        <th>Rentals</th>
+        {% endif %}
         {% for detail in iActorDetails %}
         <tr>
             {% for x in detail %}
