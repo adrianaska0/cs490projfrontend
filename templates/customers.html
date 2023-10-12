@@ -9,9 +9,11 @@
         <input type="submit" name="nav" value="Home">
         <input type="submit" name="nav" value="Movies">
         <input type="submit" name="nav" value="Customers">
+        <input type="submit" name="exp" value="Export">
     </form>
 	<h1>Customers</h1>
-    <h3>Add a Customer</h3>
+    <div id="status"></div>
+    <h3>Add Customer</h3>
     <form method="POST" action="">
         <input type="text" name="fName" placeholder="First Name">
         <input type="text" name="lName" placeholder="Last Name">
@@ -25,6 +27,7 @@
         <input type="text" name="country" placeholder="Country">
         <input type="submit" name="subAdd" value="Add Customer">
     </form>
+    <h3>Recall Customer</h3>
     <form method="POST" action="">
         <input type="submit" name="list" value="View All">
     </form>
@@ -33,6 +36,12 @@
         <input type="submit" name="filterSub" value="Filter">
     </form>
     <table border="1">
+        {% if customerList %}
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th></th>
+        {% endif %}
         {% for detail in customerList %}
         <tr>
             {% for d in detail %}
@@ -50,7 +59,7 @@
         <tr>
             <td>
                 ID: {{ cID }}<br />
-                <form method="POST" action="">
+                <form method="POST" action="" onsubmit="return confirm('Save your changes?');">
                 <input type="hidden" name="ID" value="{{cID}}"><br />
                 First Name <input type="text" name="fN" value="{{fN}}"><br />
                 Last Name <input type="text" name="lN" value="{{lN}}"><br />
@@ -71,7 +80,7 @@
     </table>
     {% endif %}
     {% if rentals %}
-    ID: {{ custIden }} {{ lNam }},{{ fNam }}
+    ID: {{ custIden }} {{ lNam }}, {{ fNam }}
     <table border="1">
         <th>Rental ID</th>
         <th>Film</th>
@@ -84,10 +93,15 @@
                 <td>
                     {{ d }}
                 </td>
-                {% if detail[3] == '' %} 
-                <td>Return</td>
-                {% endif %}
                 {% endfor %}
+                {% if detail[3] == None %} 
+                <td>
+                    <form method="POST" action="">
+                        <input type="hidden" name="rentID" value="{{detail[0]}}">
+                        <input type="submit" name="returnFilm" value="Return">
+                    </form>
+                </td>
+                {% endif %}
             </tr>
             {% endfor %}
     </table>
