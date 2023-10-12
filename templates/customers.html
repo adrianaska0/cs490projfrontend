@@ -19,10 +19,10 @@
         <input type="text" name="lName" placeholder="Last Name" required pattern="/^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/">
         <input type="email" name="email" placeholder="Email" required>
         <input type="text" name="phone" placeholder="Phone: XXXXXXXXXX" required pattern="[\d]{10}">
-        <input type="text" name="addy" placeholder="Address" required pattern="[\d]{,5}\s[A-Za-z][A-Za-z\'\-]+\s[A-Za-z]+">
-        <input type="text" name="addy2" placeholder="Address 2" pattern="[\d]{,5}\s[A-Za-z][A-Za-z\'\-]+\s[A-Za-z]+ | ^(?![\s\S])">
-        <input type="text" name="dist" placeholder="Territory/State" required pattern="[A-Za-z]{2,}">
-        <input type="text" name="city" placeholder="City" required pattern="[A-Za-z]{2,}">
+        <input type="text" name="addy" placeholder="Address" required pattern="[\d]{,5}\s[A-Za-z][A-Za-z\'\-\s]+\s[A-Za-z\s]+[\.]?">
+        <input type="text" name="addy2" placeholder="Address 2" pattern="[\d]{,5}\s[A-Za-z][A-Za-z\'\-\s]+\s[A-Za-z\s]+[\.]? | ^(?![\s\S])">
+        <input type="text" name="dist" placeholder="Territory/State" required pattern="[A-Za-z\s]{2,}">
+        <input type="text" name="city" placeholder="City" required pattern="[A-Za-z\s]{2,}">
         <input type="text" name="zip" placeholder="Zip XXXXX" required pattern="[\d]{5}">
         <select multiple="multiple" name="country" required>
             {% for c in cList %}
