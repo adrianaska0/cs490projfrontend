@@ -14,17 +14,21 @@
 	<h1>Customers</h1>
     <div id="status"></div>
     <h3>Add Customer</h3>
-    <form method="POST" action="">
-        <input type="text" name="fName" placeholder="First Name">
-        <input type="text" name="lName" placeholder="Last Name">
-        <input type="text" name="email" placeholder="Email">
-        <input type="text" name="phone" placeholder="Phone Number">
-        <input type="text" name="addy" placeholder="Address">
-        <input type="text" name="addy2" placeholder="Address 2">
-        <input type="text" name="dist" placeholder="Territory/State">
-        <input type="text" name="city" placeholder="City">
-        <input type="text" name="zip" placeholder="Zip Code">
-        <input type="text" name="country" placeholder="Country">
+    <form method="POST" action=""onsubmit="return alert('Customer Added.');">
+        <input type="text" name="fName" placeholder="First Name" required pattern="[A-Za-z]+[-]?[']?[A-Za-z]+">
+        <input type="text" name="lName" placeholder="Last Name" required pattern="/^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="Phone: XXXXXXXXXX" required pattern="[\d]{10}">
+        <input type="text" name="addy" placeholder="Address" required pattern="[\d]{,5}\s[A-Za-z][A-Za-z\'\-]+\s[A-Za-z]+">
+        <input type="text" name="addy2" placeholder="Address 2" pattern="[\d]{,5}\s[A-Za-z][A-Za-z\'\-]+\s[A-Za-z]+ | ^(?![\s\S])">
+        <input type="text" name="dist" placeholder="Territory/State" required pattern="[A-Za-z]{2,}">
+        <input type="text" name="city" placeholder="City" required pattern="[A-Za-z]{2,}">
+        <input type="text" name="zip" placeholder="Zip XXXXX" required pattern="[\d]{5}">
+        <select multiple="multiple" name="country" required>
+            {% for c in cList %}
+            <option value="{{ c[0] }}">{{ c[0] }}</option>
+            {% endfor %}
+        </select>
         <input type="submit" name="subAdd" value="Add Customer">
     </form>
     <h3>Recall Customer</h3>
@@ -32,9 +36,12 @@
         <input type="submit" name="list" value="View All">
     </form>
     <form method="POST" action="">
-        <input type="text" name="filterVal" placeholder="Filter by id, first, or last name">
+        <input type="text" name="filterVal" placeholder="Filter by id, first, or last name" required pattern="/^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/ | [0-9]+">
         <input type="submit" name="filterSub" value="Filter">
     </form>
+    {% if errorVar %}
+        <br />No results found for {{ errorVar }}.
+    {% endif %}
     <table border="1">
         {% if customerList %}
         <th>ID</th>
@@ -61,23 +68,38 @@
                 ID: {{ cID }}<br />
                 <form method="POST" action="" onsubmit="return confirm('Save your changes?');">
                 <input type="hidden" name="ID" value="{{cID}}"><br />
-                First Name <input type="text" name="fN" value="{{fN}}"><br />
-                Last Name <input type="text" name="lN" value="{{lN}}"><br />
-                Email <input type="text" name="eM" value="{{eM}}"><br />
-                Phone <input type="text" name="pH" value="{{pH}}"><br />
-                Address <input type="text" name="sT" value="{{sT}}"><br />
+                First Name <input type="text" name="fN" value="{{fN}}" required><br />
+                Last Name <input type="text" name="lN" value="{{lN}}" required><br />
+                Email <input type="text" name="eM" value="{{eM}}" required><br />
+                Phone <input type="text" name="pH" value="{{pH}}" required><br />
+                Address <input type="text" name="sT" value="{{sT}}" required><br />
                 Address 2 <input type="text" name="sT2" value="{{sT2}}"><br />
-                City <input type="text" name="cT" value="{{cT}}"><br />
-                State/Territory <input type="text" name="dT" value="{{dT}}"><br />
-                Zip Code <input type="text" name="zip" value="{{zip}}"><br />
-                Country <input type="text" name="cTry" value="{{cTry}}"><br />
+                City <input type="text" name="cT" value="{{cT}}" required><br />
+                State/Territory <input type="text" name="dT" value="{{dT}}" required><br />
+                Zip Code <input type="text" name="zip" value="{{zip}}" required><br />
+                Country <select multiple="multiple" name="cTry" required>
+                    <option value="{{cTry}}" selected>{{cTry}}</option>
+                    {% for c in cList %}
+                    <option value="{{ c[0] }}">{{ c[0] }}</option>
+                    {% endfor %}
+                </select><br />
                 <input type="submit" name="upCus" value="Update Customer">
-                <input type="submit" name="delCus" value="Delete Customer"><br />
-                <input type="submit" name="rentals" value="View Rentals">
+                </form>
+                <form method="POST" action="" onsubmit="return confirm('You are about to delete this customer. Continue?');">
+                    <input type="hidden" name="ID" value="{{cID}}">
+                    <input type="submit" name="delCus" value="Delete Customer"><br />
+                </form>
+                <form method="POST" action="">
+                    <input type="hidden" name="ID" value="{{cID}}">
+                    <input type="submit" name="rentals" value="View Rentals">
                 </form>
             </td>
         </tr>
     </table>
+    {% endif %}
+    {% if errorVarRent %}
+    ID: {{ custIden }} {{ lNam }}, {{ fNam }}
+        <br />{{ errorVarRent }}
     {% endif %}
     {% if rentals %}
     ID: {{ custIden }} {{ lNam }}, {{ fNam }}
@@ -96,7 +118,7 @@
                 {% endfor %}
                 {% if detail[3] == None %} 
                 <td>
-                    <form method="POST" action="">
+                    <form method="POST" action="" onsubmit="return alert('Film Returned.');">
                         <input type="hidden" name="rentID" value="{{detail[0]}}">
                         <input type="submit" name="returnFilm" value="Return">
                     </form>
