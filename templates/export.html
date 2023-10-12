@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Export</title>
+</head>
+<body>
+    <h2>Rental Report</h2>
+    <p align="right">{{ stamp }}</p>
+    <table border="1">
+        <th>Rental ID</th>
+        <th>Customer ID</th>
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Film</th>
+        <th>Rental Date</th>
+        <th>Last Update</th>
+        {% for detail in details %}
+        <tr>
+            {% for d in detail %}
+                <td>{{ d }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
